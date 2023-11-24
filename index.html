@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <button id="remove" class="remove" onclick="removeButton()">remove</button>
+
+    <input type="text" id="color">
+    <button id="get-color">get color</button>
+
+    <ul id="users"></ul>
+
+
+
+    <form id="sign-up" name="signUp">
+        <div>
+            <input type="text" name="first_name" required>
+            <label for="first_name">first name</label>
+        </div>
+        <div>
+            <input type="number" name="number" required>
+            <label for="number" required>number</label>
+        </div>
+        <div>
+            <input type="password" name="password" required>
+            <label for="password">password</label>
+        </div>
+        <div>
+            <input type="password" name="confirmPassword" required>
+            <label for="confirmPassword">confirm password</label>
+        </div>
+        <div>
+            <button>send</button>
+        </div>
+    </form>
+
+
+
+    <script>
+        const form = document.getElementById('sign-up');
+        const input = document.querySelector('input[type="number"]');
+        form.addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            try {
+
+                let form = document.forms.signUp
+
+                // if (form.first_name.value.length < 2) {
+                //     throw new Error("first name must be more than 2 characters")
+                //     return
+                // } 
+
+
+                if (form.number.value.length) {
+                    // throw new Error("number must be equals 9 characters")
+                    // return
+                    input.style.border = "7px solid red"
+
+                } else {
+                    input.style.border = "7px solid green"
+                }
+                if (form.password.value.length < 8) {
+                    throw new Error("password must be more than 8 characters")
+                    return
+                }
+                if (form.password.value !== form.confirmPassword.value) {
+                    throw new Error("password does not match")
+                    return
+                }
+
+                const data = {
+                    first_name: form.first_name.value,
+                    number: form.number.value,
+                    password: form.password.value,
+                    confirmPassword: form.confirmPassword.value
+                }
+                console.log(data)
+
+
+            } catch (e) {
+                const p = document.createElement('p');
+                p.textContent = e.message;
+                p.style.color = "red"
+                document.body.appendChild(p);
+
+            }
+
+        })
+
+
+
+
+
+
+        ///----------------------  დავალებები 
+
+        //1
+
+        // version 1
+        const removeBtn = document.getElementById('remove');
+        removeBtn.addEventListener("click", function () {
+            removeBtn.remove();
+        })
+
+        // version 2
+        const removeButton = function () {
+            removeBtn.remove();
+        }
+
+
+
+        //2
+        const img = document.createElement('img');
+
+        //version 1
+        img.src = "https://www.simplilearn.com/ice9/free_resources_article_thumb/Become_a_Front_End_Developer.jpg ";
+        img.alt = "development";
+
+
+        // version 2
+        img.setAttribute("class", "image-wrapper")
+        img.setAttribute("src", "https://www.simplilearn.com/ice9/free_resources_article_thumb/Become_a_Front_End_Developer.jpg ")
+        img.setAttribute("alt", "development")
+
+        document.body.appendChild(img);
+
+
+        //3
+        const getColorButton = document.getElementById('get-color'); //button
+        const inputColor = document.getElementById('color'); //input
+
+
+        // version 1
+        let value
+        inputColor.addEventListener("change", function (e) {
+            value = e.target.value
+        })
+        getColorButton.addEventListener("click", function () {
+            const p = document.createElement('p');
+            p.textContent = value;
+            document.body.appendChild(p);
+        })
+        // version 2
+
+        getColorButton.addEventListener("click", function () {
+            const p = document.createElement('p');
+            p.textContent = inputColor.value;
+            document.body.appendChild(p);
+        })
+
+
+        //4
+        const productData = [{ product_id: 1, amount: 250 }, { product_id: 2, amount: 390 }, { product_id: 3, amount: 1500 }, { product_id: 4, amount: 4500 }]
+
+        const getSum = (array) => {
+            let sum = 0
+
+            for (let index = 0; index < array.length; index++) {
+                const element = array[index];
+                sum = sum + element.amount
+
+            }
+            return sum
+        }
+
+        const sumParagraph = document.createElement('p');
+        sumParagraph.textContent = getSum(productData);
+        document.body.appendChild(sumParagraph)
+
+
+        //5
+
+        const users = [
+            {
+                id: 7,
+                email: "michael.lawson@reqres.in",
+                first_name: "Michael",
+                last_name: "Lawson",
+                image: "https://picsum.photos/200/300"
+            },
+            {
+                id: 8,
+                email: "lindsay.ferguson@reqres.in",
+                first_name: "Lindsay",
+                last_name: "Ferguson",
+                image: "https://picsum.photos/200/300"
+            },
+            {
+                id: 9,
+                email: "tobias.funke@reqres.in",
+                first_name: "Tobias",
+                last_name: "Funke",
+                image: "https://picsum.photos/200/300"
+            },
+            {
+                id: 10,
+                email: "byron.fields@reqres.in",
+                first_name: "Byron",
+                last_name: "Fields",
+                image: "https://picsum.photos/200/300"
+            },
+            {
+                id: 11,
+                email: "george.edwards@reqres.in",
+                first_name: "George",
+                last_name: "Edwards",
+                image: "https://picsum.photos/200/300"
+            },
+            {
+                id: 12,
+                email: "rachel.howell@reqres.in",
+                first_name: "Rachel",
+                last_name: "Howell",
+                image: "https://picsum.photos/200/300"
+            }
+        ];
+
+        const ul = document.getElementById('users');
+
+
+        for (let index = 0; index < users.length; index++) {
+            const element = users[index];
+            const li = document.createElement('li');
+            li.textContent = element.first_name + " " + element.last_name;
+            ul.appendChild(li);
+        }
+
+
+
+
+
+
+    </script>
+</body>
+
+</html>
